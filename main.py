@@ -11,7 +11,7 @@ def scrape_quotes(url):
     html = response.text
     soup = BeautifulSoup(html, "html.parser")
     quote_elements = soup.find_all('div', class_='quote')
-    #print(quote_elements)
+
     scraped_data = [] 
 
     #print(len(quote_elements))
@@ -33,16 +33,15 @@ def scrape_quotes(url):
     with open(csv_file, 'a', newline='', encoding='utf-8') as file:
         writer = csv.DictWriter(file, fieldnames=csv_header)
         
-        # If the file is empty, write the header
+        #If the file is empty, write the header
         if file.tell() == 0:
             writer.writeheader()
 
         writer.writerows(scraped_data)
 
-# Iterate through pages
+#Iterate through pages
 for page_num in range(1, 11):
     url = f"https://quotes.toscrape.com/page/{page_num}/"
-    print(f"Scraping page {page_num}...")
+    print(f"Scraping page {page_num}.....")
     scrape_quotes(url)
-    #cprint(scrape_quotes)
 print(f'Data scraped and saved to {csv_file}')
